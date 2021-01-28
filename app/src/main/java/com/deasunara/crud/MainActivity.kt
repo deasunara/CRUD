@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     fun handleUpdates(){
         btnUpdate.setOnClickListener {
             try {
-              val isUpdate = dbHelper.updateData(txtNama.text.toString(),txtNim.text.toString()
+              val isUpdate = dbHelper.updateData("1",txtNama.text.toString(),txtNim.text.toString()
                       ,txtFakultas.text.toString(),txtProdi.text.toString())
                 if (isUpdate == true)
                     showToast("data selesai di update")

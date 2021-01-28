@@ -10,7 +10,12 @@ class  DatabaseHelper(context : Context) :
         SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
 
     override fun onCreate(db: SQLiteDatabase) {
-        db.execSQL("CREATE TABLE $TABLE_NAME (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,TYPE TEXT)")
+        db.execSQL("CREATE TABLE $TABLE_NAME (" +
+                "$COL_1 INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "$COL_2 TEXT NOT NULL," +
+                "$COL_3 TEXT NOT NULL," +
+                "$COL_4 TEXT NOT NULL," +
+                "$COL_5 TEXT NOT NULL)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -20,23 +25,26 @@ class  DatabaseHelper(context : Context) :
 
     }
 
-    fun inserData(name: String, surname: String, marks: String, toString: String) {
+    fun inserData(name: String, nim: String, fakultas: String, prodi: String) {
 
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COL_2, name)
-        contentValues.put(COL_3, surname)
-        contentValues.put(COL_4, marks)
+        contentValues.put(COL_3, nim)
+        contentValues.put(COL_4, fakultas)
+        contentValues.put(COL_5, prodi)
+
         db.insert(TABLE_NAME, null, contentValues)
     }
 
-    fun updateData(id: String, name: String, surname: String, marks: String): Boolean {
+    fun updateData(id: String, name: String, nim: String, fakultas: String, prodi: String): Boolean {
         val db = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put(COL_1, id)
         contentValues.put(COL_2, name)
-        contentValues.put(COL_3, surname)
-        contentValues.put(COL_4, marks)
+        contentValues.put(COL_3, nim)
+        contentValues.put(COL_4, fakultas)
+        contentValues.put(COL_5, prodi)
         db.update(TABLE_NAME, ContentValues(), "ID = ?", arrayOf(id))
         return true
     }
@@ -53,12 +61,13 @@ class  DatabaseHelper(context : Context) :
         }
 
     companion object {
-        val DATABASE_NAME = "star.db"
-        val TABLE_NAME = "star_table"
-        val COL_1 = "txtNama"
-        val COL_2 = "txtNim"
-        val COL_3 = "txtFakultas"
-        val COL_4 = "txtProdi"
+        val DATABASE_NAME = "mahasiswa.db"
+        val TABLE_NAME = "data_mahasiswa"
+        val COL_1 = "ID"
+        val COL_2 = "nama"
+        val COL_3 = "nim"
+        val COL_4 = "fakultas"
+        val COL_5 = "prodi"
     }
 
 }
